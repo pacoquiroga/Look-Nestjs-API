@@ -34,7 +34,7 @@ npm install
 
 ## Define and running multi-container application
 
-```
+```bash
 # Run Postgresql db container
 docker compose up -d build db
 
