@@ -22,26 +22,70 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Proyecto NestJS - Gestión de Productos
 
-[Nest](https://github.com/nestjs/nest) RESTfull API to manage CRUD operations for products.
+Este proyecto es una API RESTful desarrollada en NestJS que permite gestionar productos en un sistema. La API incluye funcionalidades para crear, leer, actualizar y eliminar productos, y está contenerizada utilizando Docker.
 
-## Dependencies Installation
+## Funcionalidades
 
-```
-npm install
-```
+La API de productos ofrece las siguientes operaciones:
 
-## Define and running multi-container application
+- **Obtener todos los productos**: 
+  - **Método**: `GET /products`
+  - **Descripción**: Recupera una lista de todos los productos en el sistema.
 
-```bash
-# Run Postgresql db container
-docker compose up -d build db
+- **Obtener un producto específico**: 
+  - **Método**: `GET /products/:product_id`
+  - **Descripción**: Recupera un producto específico utilizando su ID. Si el producto no se encuentra, lanza un error.
 
-# Build products API image
-docker compose build
+- **Crear un nuevo producto**: 
+  - **Método**: `POST /products`
+  - **Descripción**: Crea un nuevo producto en el sistema utilizando los datos proporcionados en el cuerpo de la solicitud.
 
-#Run multi-container application API-DB
-docker compose up
+- **Actualizar un producto existente**: 
+  - **Método**: `PUT /products/:product_id`
+  - **Descripción**: Actualiza la información de un producto específico utilizando su ID y los datos proporcionados en el cuerpo de la solicitud.
 
-```
+- **Eliminar un producto**: 
+  - **Método**: `DELETE /products/:product_id`
+  - **Descripción**: Elimina un producto específico utilizando su ID. Si el producto no existe, lanza un error.
+
+## Requisitos
+
+- Docker
+- Docker Compose
+
+## Instalación y Uso
+
+1. **Clona el repositorio**:
+
+    ```bash
+    https://github.com/pacoquiroga/Look-Nestjs-API.git
+    ```
+
+2. **Construir y levantar los contenedores**:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+3. **Accede a la API**:
+
+   La API estará disponible en `http://localhost:5000/products`.
+
+## Configuración de Docker
+
+Este proyecto utiliza Docker Compose para facilitar la gestión de contenedores. A continuación se describe la configuración:
+
+- **Servicios**:
+  - `nestapp`: Este es el contenedor que ejecuta la aplicación NestJS. 
+    - **Imagen**: `psqb/nestapp_products:1.0.0`
+    - **Puertos**: expone el puerto `5000`.
+    - **Variables de entorno**: Se configura la conexión a la base de datos PostgreSQL.
+  - `db`: Contenedor para la base de datos PostgreSQL.
+    - **Imagen**: `postgres:16.1`
+    - **Puertos**: expone el puerto `5432`.
+    - **Variables de entorno**: Configura las credenciales y el nombre de la base de datos.
+
+- **Volúmenes**: Se utiliza un volumen persistente para almacenar los datos de la base de datos.
+
